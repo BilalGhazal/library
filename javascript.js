@@ -10,6 +10,17 @@ function Book(title, author, releaseDate, pages, isRead) {
     this.id = crypto.randomUUID();
 }
 
+Book.prototype.changeReadStatus = function() {
+    if (this.isRead === "yes") {
+        this.isRead = "no";
+    }
+
+    else {
+        this.isRead = "yes";
+    }
+
+}
+
 
 function addBookToLibrary(title, author, releaseDate, pages, isRead) {
     let book = new Book(title, author, releaseDate, pages, isRead);
@@ -117,24 +128,27 @@ form.addEventListener("submit", function(event) {
 
     
 main.addEventListener("click", function(event) {
+    
+    if (!event.target.matches(".remove, .read, .not-read")) return;
+    
+    const removedDiv = event.target.parentElement.parentElement;
+          
+    const id = removedDiv.getAttribute("data-id");
+    
+    index = myLibrary.findIndex((item) => item.id === id);
+
+    if (index === -1) return;
+
     if (event.target.matches(".remove")) {
-        
-    }
-})
-
-removeButtons.forEach(button => {
-
-    button.addEventListener("click", function () {
-
-        const removedDiv = this.parentElement.parentElement;
-    
-        const id = removedDiv.getAttribute("data-id");
-    
-        index = myLibrary.findIndex((item) => item.id === id);
         
         myLibrary.splice(index, 1);
     
         removedDiv.remove();
-    })
+    }
+
+    else if (event.target.matches(".read") || event.target.matches(".not-read")) {
+        myLibrary[index].changeReadStatus();
+
+    }
 })
 
