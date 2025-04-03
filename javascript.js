@@ -25,64 +25,67 @@ Book.prototype.changeReadStatus = function() {
 function addBookToLibrary(title, author, releaseDate, pages, isRead) {
     let book = new Book(title, author, releaseDate, pages, isRead);
     myLibrary.push(book);
-    display(book)
+    display(myLibrary);
 }
 
 const main = document.querySelector(".main");
 
 
-function display(book) {
+function display(array) {
 
-    const div = document.createElement("div");
-    div.classList.add("card");
-    div.setAttribute("data-id", book.id)
-    
-    const title = document.createElement("p");
-    title.textContent = book.title;
+    main.innerHTML = "";
 
-    const author = document.createElement("p");
-    author.textContent = book.author;
+    for (item in array) {
+        const div = document.createElement("div");
+        div.classList.add("card");
+        div.setAttribute("data-id", array[item].id)
+        
+        const title = document.createElement("p");
+        title.textContent = array[item].title;
 
-    const releaseDate = document.createElement("p");
-    releaseDate.textContent = book.releaseDate;
+        const author = document.createElement("p");
+        author.textContent = array[item].author;
 
-    const pages = document.createElement("p");
-    pages.textContent = book.pages;
+        const releaseDate = document.createElement("p");
+        releaseDate.textContent = array[item].releaseDate;
 
-    const buttonsRow = document.createElement("div");
-    buttonsRow.classList.add("buttons-row");
+        const pages = document.createElement("p");
+        pages.textContent = array[item].pages;
 
-    const removeButton = document.createElement("button");
-    removeButton.classList.add("remove");
-    removeButton.textContent = "Remove";
+        const buttonsRow = document.createElement("div");
+        buttonsRow.classList.add("buttons-row");
 
-    const readButton = document.createElement("Button");
+        const removeButton = document.createElement("button");
+        removeButton.classList.add("remove");
+        removeButton.textContent = "Remove";
 
-    const read = document.createElement("p");
+        const readButton = document.createElement("Button");
 
-    if (book.isRead === "yes") {
-        readButton.classList.add("read");
-        read.textContent = "Read"
+        const read = document.createElement("p");
+
+        if (array[item].isRead === "yes") {
+            readButton.classList.add("read");
+            read.textContent = "Read"
+        }
+
+        else {
+            readButton.classList.add("not-read");
+            read.textContent = "Didn't read"
+        }
+        
+        buttonsRow.appendChild(removeButton);
+        buttonsRow.appendChild(readButton);
+
+
+        div.appendChild(title);
+        div.appendChild(author);
+        div.appendChild(releaseDate);
+        div.appendChild(pages);
+        div.appendChild(read);
+        div.appendChild(buttonsRow);
+
+        main.appendChild(div);
     }
-
-    else {
-        readButton.classList.add("not-read");
-        read.textContent = "Didn't read"
-    }
-    
-    buttonsRow.appendChild(removeButton);
-    buttonsRow.appendChild(readButton);
-
-
-    div.appendChild(title);
-    div.appendChild(author);
-    div.appendChild(releaseDate);
-    div.appendChild(pages);
-    div.appendChild(read);
-    div.appendChild(buttonsRow);
-
-    main.appendChild(div);
- 
 }
 
 const dialog = document.querySelector("dialog");
@@ -130,7 +133,7 @@ form.addEventListener("submit", function(event) {
 main.addEventListener("click", function(event) {
     
     if (!event.target.matches(".remove, .read, .not-read")) return;
-    
+
     const removedDiv = event.target.parentElement.parentElement;
           
     const id = removedDiv.getAttribute("data-id");
@@ -143,11 +146,12 @@ main.addEventListener("click", function(event) {
         
         myLibrary.splice(index, 1);
     
-        removedDiv.remove();
+        display(myLibrary);
     }
 
     else if (event.target.matches(".read") || event.target.matches(".not-read")) {
         myLibrary[index].changeReadStatus();
+        display(myLibrary);
 
     }
 })
