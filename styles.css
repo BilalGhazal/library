@@ -1,11 +1,35 @@
 html, body, .container {
     margin: 0;
     height: 100%;
+    font-family: sans-serif;
+}
+
+:root {
+    --border-radius: 15px;
 }
 
 .container {
     display: grid;
-    grid-template-rows: 4fr 1fr;    
+    grid-template-rows: 4fr 1fr;
+    background-color: gray;
+    
+}
+
+.main {
+    width: 90%;
+    height: 90%;
+    padding: 10px;
+    justify-self: center;
+    align-self: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    background-color: aquamarine;
+    border-radius: var(--border-radius);
+    gap: 5px;
+    justify-items: center;
+    align-items: center;
+
 }
 
 .add-book-button {
@@ -22,5 +46,123 @@ html, body, .container {
 
 .add-book-button:hover {
     background-color: forestgreen;
+    cursor: pointer;
+}
+
+p {
+    width: fit-content;
+    margin: 0;
+    padding: 5px;
+    overflow: hidden;
+
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid red;
+    border-radius: var(--border-radius);
+    height: 90%;
+    width: 75%;
+}
+
+dialog {
+    height: 50%;
+    width: 25%;
+    padding: 0;
+    border: 3px solid forestgreen;
+    border-radius: 5px;
+
+}
+
+.dialog-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: start;
+    gap: 10px;
+}
+
+.row {
+    display: grid;
+}
+button.row {
+    align-self: center;
+    padding: 5px 10px;
+    border: 1px solid forestgreen;
+    border-radius: 5px;
+    
+}
+
+button.row:hover {
+    background-color: forestgreen;
+    cursor: pointer;
+}
+
+.close {
+    align-self: end;
+    margin-right: 25px;
+    border: 1px solid forestgreen;
+    border-radius: 5px;
+}
+
+.close:hover {
+    background-color: forestgreen;
+    cursor: pointer;
+}
+
+.buttons-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.remove {
+    border: 1px solid RGB(243, 32, 19);
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.remove:hover {
+    background-color: RGB(243, 32, 19);
+    cursor: pointer;
+}
+
+.read, .not-read {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.not-read:before {
+    content: "Read?";
+}
+
+.read:before {
+    content: "Didn't read?";
+}
+
+.not-read:hover {
+    background-color: forestgreen;
+    cursor: pointer;
+}
+
+.read:hover {
+    background-color: RGB(243, 32, 19);
     cursor: pointer;
 }
